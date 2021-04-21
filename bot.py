@@ -18,7 +18,7 @@ class Config:
     API_KEY = os.environ.get("API_KEY", None)
     HU_APP = from_key(API_KEY).apps()[APP_NAME]
     APP_ID = os.environ.get("APP_ID")
-    COMMAND_PREFIXES = "/" 
+     
 class Bot(Client):
     def __init__(self):
         kwargs = {
