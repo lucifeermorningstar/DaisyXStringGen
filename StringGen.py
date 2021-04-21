@@ -6,6 +6,8 @@ import asyncio
 from bot import Bot, Config
 from pyromod import listen
 from asyncio.exceptions import TimeoutError
+from filters import command, other_filters, other_filters2
+
 
 from pyrogram import filters, Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
@@ -179,9 +181,6 @@ async def is_cancel(msg: Message, text: str):
 
 if __name__ == "__main__":
     bot.run()
-
-from pyrogram import Client
-from filters import command, other_filters, other_filters2
 
 
 @Client.on_message(command("start") & other_filters2)
