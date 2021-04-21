@@ -43,7 +43,7 @@ async def genStr(bot: Bot, msg: Message):
         int(api.text)
     except Exception:
         await api.delete()
-        await msg.reply("`API ID Invalid.`\nPress /start to create again.")
+        await msg.reply("`API ID Invalid.`\nPress /genstr to create again.")
         return
     api_id = api.text
     await api.delete()
@@ -55,7 +55,7 @@ async def genStr(bot: Bot, msg: Message):
     try:
         client = Client("my_account", api_id=api_id, api_hash=api_hash)
     except Exception as e:
-        await bot.send_message(chat.id ,f"**ERROR:** `{str(e)}`\nPress /start to create again.")
+        await bot.send_message(chat.id ,f"**ERROR:** `{str(e)}`\nPress /genstr to create again.")
         return
     try:
         await client.connect()
@@ -86,19 +86,19 @@ async def genStr(bot: Bot, msg: Message):
         await msg.reply(f"`you have floodwait of {e.x} Seconds`")
         return await bot.sleep(msg)
     except ApiIdInvalid:
-        await msg.reply("`Api Id and Api Hash are Invalid.`\n\nPress /start to create again.")
+        await msg.reply("`Api Id and Api Hash are Invalid.`\n\nPress /genstr to create again.")
         return await bot.sleep(msg)
     except PhoneNumberInvalid:
-        await msg.reply("`your Phone Number is Invalid.`\n\nPress /start to create again.")
+        await msg.reply("`your Phone Number is Invalid.`\n\nPress /genstr to create again.")
         return await bot.sleep(msg)
     try:
         otp = await bot.ask(
             chat.id, ("`An otp is sent to your phone number, "
                       "Please enter otp in\n`1 2 3 4 5` format.`\n\n"
-                      "`If Bot not sending OTP then try` /restart `cmd and again` /start `the Bot.`\n"
+                      "`If Bot not sending OTP then try` /restart `cmd and again` /genstr `the Bot.`\n"
                       "Press /cancel to Cancel."), timeout=300)
     except TimeoutError:
-        await msg.reply("`Time limit reached of 5 min.\nPress /start to create again.`")
+        await msg.reply("`Time limit reached of 5 min.\nPress /genstr to create again.`")
         return await bot.sleep(msg)
     if await is_cancel(msg, otp.text):
         return await client.disconnect()
@@ -107,10 +107,10 @@ async def genStr(bot: Bot, msg: Message):
     try:
         await client.sign_in(phone, code.phone_code_hash, phone_code=' '.join(str(otp_code)))
     except PhoneCodeInvalid:
-        await msg.reply("`Invalid Code.`\n\nPress /start to create again.")
+        await msg.reply("`Invalid Code.`\n\nPress /genstr to create again.")
         return await bot.sleep(msg)
     except PhoneCodeExpired:
-        await msg.reply("`Code is Expired.`\n\nPress /start to create again.")
+        await msg.reply("`Code is Expired.`\n\nPress /genstr to create again.")
         return await bot.sleep(msg)
     except SessionPasswordNeeded:
         try:
