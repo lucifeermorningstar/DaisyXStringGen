@@ -181,7 +181,7 @@ if __name__ == "__main__":
     bot.run()
 
 from pyrogram import Client
-from pyrogram.filters import command, other_filters, other_filters2
+from filters import command, other_filters, other_filters2
 
 
 @Client.on_message(command("start") & other_filters2)
